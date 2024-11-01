@@ -43,7 +43,7 @@ def pdf_to_data(pdf_path: str, output_folder: str, tesseract_path: str, include_
         tsv_clean = data_read[['line_num', 'word_num', 'left', 'top', 'text', 'conf']]
         tsv_total = pd.concat([tsv_total, tsv_clean])
 
-        img_to_string = pytesseract.image_to_string(resize, config = r'--psm 6')
+        img_to_string = pytesseract.image_to_string(resize, config = r'--psm 6', lang = 'en')
         sum_string += img_to_string
         
         if include_pngs:
@@ -56,27 +56,3 @@ def pdf_to_data(pdf_path: str, output_folder: str, tesseract_path: str, include_
     with open(output_str_path, 'w') as file:
         file.write(sum_string)
     print("Done!")
-
-def str_to_csv(processed_folder_path: str):
-    input_path = f'{processed_folder_path}/str_data.txt'
-    output_path = f'{processed_folder_path}/csv_from_str.txt'
-
-    # define patterns
-    title_page_pattern = re.compile(r'^(.*?)\s+(\d+)$') # title  page number
-    title_author_page_pattern = re.compile(r'^(.+?)\s+\((.*?)\)\s+(\d+)$') # title  author  page number
-
-    data = []
-
-    with open(input_path, 'r') as file:
-        for line in file: # iterate through each line in the file
-            line = line.strip()
-
-            # matching title_page_pattern
-            match_tp = title_page_pattern.match(line)
-            if match_tp:
-                work = match_tp.group(1).strip()
-                page_number = match_tp.group(2)
-                data.append([work, 'Unknown', page_number]) # flag for edits
-            
-            match_tap = title_author_
-    return
