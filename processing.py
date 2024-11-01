@@ -6,8 +6,9 @@ from pandas import DataFrame as df
 from io import StringIO
 from pathlib import Path
 import csv
+import re
 
-def pdf_to_data(pdf_path, output_folder, tesseract_path, include_pngs= False):
+def pdf_to_data(pdf_path: str, output_folder: str, tesseract_path: str, include_pngs= False):
     '''Chop a given PDF into individual pages, then convert each PDF into an image (saved to the pngs folder). Convert OCR data about each page into a .csv.
         This function requires that you have a folder in the same level as your pdf for outputs, and then two folders within that folder titled 'pngs' and 'tsv_data'.
         For example:
@@ -51,8 +52,31 @@ def pdf_to_data(pdf_path, output_folder, tesseract_path, include_pngs= False):
 
     output_tsv_total = Path(f"{output_folder}/location.csv")
     tsv_total.to_csv(output_tsv_total, sep= ',', index=False)
-    #print(sum_string)
     output_str_path = Path(f"{output_folder}/str_data.txt")
     with open(output_str_path, 'w') as file:
         file.write(sum_string)
     print("Done!")
+
+def str_to_csv(processed_folder_path: str):
+    input_path = f'{processed_folder_path}/str_data.txt'
+    output_path = f'{processed_folder_path}/csv_from_str.txt'
+
+    # define patterns
+    title_page_pattern = re.compile(r'^(.*?)\s+(\d+)$') # title  page number
+    title_author_page_pattern = re.compile(r'^(.+?)\s+\((.*?)\)\s+(\d+)$') # title  author  page number
+
+    data = []
+
+    with open(input_path, 'r') as file:
+        for line in file: # iterate through each line in the file
+            line = line.strip()
+
+            # matching title_page_pattern
+            match_tp = title_page_pattern.match(line)
+            if match_tp:
+                work = match_tp.group(1).strip()
+                page_number = match_tp.group(2)
+                data.append([work, 'Unknown', page_number]) # flag for edits
+            
+            match_tap = title_author_
+    return
