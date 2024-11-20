@@ -43,7 +43,7 @@ def pdf_to_data(pdf_path: str, output_folder: str, tesseract_path: str, include_
         tsv_clean = data_read[['line_num', 'word_num', 'left', 'top', 'text', 'conf']]
         tsv_total = pd.concat([tsv_total, tsv_clean])
 
-        img_to_string = pytesseract.image_to_string(resize, config = r'--psm 6', lang = 'en')
+        img_to_string = pytesseract.image_to_string(resize, config = r'--psm 6', lang = 'eng')
         sum_string += img_to_string
         
         if include_pngs:
