@@ -21,3 +21,11 @@ order by dw.toc_page ASC;
 ```
 
 Then save the data and upload it to this folder. We did this in DBeaver.
+
+You can get the anthology IDs with the SQL script:
+
+```
+select *
+from data_anthology da
+order by title asc;
+```
