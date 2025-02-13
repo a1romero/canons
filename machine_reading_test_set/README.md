@@ -20,4 +20,4 @@ where dw.anthology_id = ANTHOLOGY_ID_HERE
 order by dw.toc_page ASC;
 ```
 
-Then save the data and upload it to this folder
+Then save the data and upload it to this folder. We did this in DBeaver.
