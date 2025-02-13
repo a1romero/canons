@@ -1,4 +1,4 @@
-### Machine Reading Test Set
+## Machine Reading Test Set
 This folder contains extracted data from the database in .csv format. Filenames are organized by their ID in the database and a name for the anthology.
 
 ### How to get more data
